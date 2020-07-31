@@ -1,19 +1,17 @@
-//a reducer specifies the applicatopn state changes in response to certain actions in our store
-
 export default (state, action) => {
   switch (action.type) {
     case 'DELETE_TRANSACTION':
       return {
-        ...state,
-        transactions: state.transactions.filter(
-          (transaction) => transaction.id !== action.payload
-        ),
+        transactions: state.transactions.filter((e) => e.id !== action.payload),
       }
     case 'ADD_TRANSACTION':
+      const stateTransactions = [...state.transactions]
       return {
-        ...state,
-        transactions: [action.payload, ...state.transactions],
-        // state.transactions.push(action.payload),
+        transactions: [...stateTransactions, action.payload],
+      }
+    case 'INITIAL_TRANSACTIONS':
+      return {
+        transactions: [...action.payload],
       }
     default:
       return state
